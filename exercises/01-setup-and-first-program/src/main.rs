@@ -11,6 +11,7 @@ Tasks:
 fn main() {
     println!("Hello from Rust.");
     println!("Edit this program to introduce yourself.");
+    println!("Bonjour!");
 }
 
 #[cfg(test)]
