@@ -28,7 +28,8 @@ fn main() {
     println!("Whitespace count: {spaces}");
 
     // TODO: Print the sum of `scores`.
-    let _ = scores;
+    let total = scores.iter().sum::<i32>();
+    println!("Total: {total}");
 }
 
 #[cfg(test)]

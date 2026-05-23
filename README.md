@@ -17,7 +17,7 @@ Each part includes:
 ## Progress Tracker
 
 - [x] Part 1: Setup and First Program
-- [ ] Part 2: Variables, Mutability, and Basic Types
+- [x] Part 2: Variables, Mutability, and Basic Types
 - [ ] Part 3: Ownership and Moves
 - [ ] Part 4: Borrowing and References
 - [ ] Part 5: Strings and Slices
