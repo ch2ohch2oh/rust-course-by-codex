@@ -1,6 +1,6 @@
 # Rust Course for C++ and Python Programmers
 
-This repo is a 20-part Rust course aimed at programmers coming from C++ and Python.
+This repo is a 20-part Rust course plus one supplemental lesson aimed at programmers coming from C++ and Python.
 Each part includes:
 
 - a lesson in [`lessons/`](./lessons)
@@ -26,6 +26,7 @@ Each part includes:
 - [ ] Part 8: Collections and Iterators
 - [ ] Part 9: Error Handling
 - [ ] Part 10: Modules, Crates, and Project Structure
+- [ ] Part 10A: Rust Attributes
 - [ ] Part 11: Traits and Generics
 - [ ] Part 12: Lifetimes
 - [ ] Part 13: Smart Pointers and Heap Data
@@ -54,6 +55,7 @@ Each part includes:
 - [Part 8](./lessons/08-collections-and-iterators.md)
 - [Part 9](./lessons/09-error-handling.md)
 - [Part 10](./lessons/10-modules-crates-and-project-structure.md)
+- [Part 10A](./lessons/10a-rust-attributes.md)
 - [Part 11](./lessons/11-traits-and-generics.md)
 - [Part 12](./lessons/12-lifetimes.md)
 
@@ -76,7 +78,7 @@ Each part includes:
 - Week 1: Parts 1-3
 - Week 2: Parts 4-6
 - Week 3: Parts 7-9
-- Week 4: Parts 10-12
+- Week 4: Parts 10, 10A-12
 - Week 5: Parts 13-15
 - Week 6: Parts 16-17
 - Week 7: Parts 18-19
@@ -100,6 +102,7 @@ Each exercise lives in its own numbered Cargo project, for example:
 
 - [`exercises/01-setup-and-first-program`](./exercises/01-setup-and-first-program)
 - [`exercises/03-ownership-and-moves`](./exercises/03-ownership-and-moves)
+- [`exercises/10a-rust-attributes`](./exercises/10a-rust-attributes)
 - [`exercises/15-concurrency-with-threads-and-channels`](./exercises/15-concurrency-with-threads-and-channels)
 
 The instructions are embedded in code comments and TODO markers to avoid duplicating the same exercise in prose and in starter code.
