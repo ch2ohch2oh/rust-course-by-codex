@@ -21,7 +21,7 @@ Each part includes:
 - [x] Part 3: Ownership and Moves
 - [x] Part 4: Borrowing and References
 - [x] Part 5: Strings and Slices
-- [ ] Part 6: Control Flow and Pattern Matching
+- [x] Part 6: Control Flow and Pattern Matching
 - [ ] Part 7: Structs, Enums, and Methods
 - [ ] Part 8: Collections and Iterators
 - [ ] Part 9: Error Handling

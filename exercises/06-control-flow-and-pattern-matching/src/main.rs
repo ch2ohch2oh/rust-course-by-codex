@@ -8,20 +8,25 @@ Tasks:
 4. Add one `while let` example.
 */
 
+// This enum is small and has no owned data, so Clone + Copy are a natural fit.
 #[derive(Clone, Copy)]
 enum Command {
     Start,
     Pause,
     Resume,
     Stop,
+    Unknown
 }
 
+// String literals live for the whole program, so &'static str works here,
+// though writing just &str would also be fine.
 fn command_name(command: Command) -> &'static str {
     match command {
         Command::Start => "starting",
         Command::Pause => "pausing",
         Command::Resume => "resuming",
         Command::Stop => "stopping",
+        Command::Unknown => "unknown",
     }
 }
 
@@ -58,7 +63,7 @@ fn main() {
         }
     }
 
-    let mut remaining = Some(3_i32);
+    let mut remaining = Some(3_u32);
     while let Some(value) = remaining {
         println!("countdown: {value}");
         remaining = value.checked_sub(1);
