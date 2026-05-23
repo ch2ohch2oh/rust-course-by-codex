@@ -8,6 +8,8 @@ Tasks:
 4. Run Clippy and clean up anything that points to a real improvement.
 */
 
+use std::time::Instant;
+
 fn greet_owned(name: String) {
     println!("hello {name}");
 }
@@ -21,12 +23,17 @@ fn greet_borrowed(name: &str) -> String {
 }
 
 fn main() {
-    let name = String::from("Rust");
+    let name = "Rust";
+    let started = Instant::now();
 
-    println!("{}", greet_borrowed(&name));
-    greet_owned(name.clone());
+    println!("{}", greet_borrowed(name));
+    println!("{}", greet_owned_message(String::from(name)));
+    greet_owned(String::from(name));
 
-    println!("TODO: identify which version is more flexible and why.");
+    println!(
+        "borrowed APIs are usually more flexible because callers can pass either `&str` or `&String` without giving up ownership"
+    );
+    println!("demo elapsed = {:?}", started.elapsed());
 }
 
 #[cfg(test)]

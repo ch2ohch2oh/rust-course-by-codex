@@ -8,18 +8,21 @@ Tasks:
 4. Change or extend one attribute and observe how it affects compilation or behavior.
 */
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy)]
 #[repr(u8)]
 enum BuildMode {
     Debug = 1,
     Release = 2,
 }
 
+// This helper is intentionally parked for a later lesson, so suppressing
+// `dead_code` locally is more precise than weakening the crate-wide lint.
 #[allow(dead_code)]
 fn future_helper() -> &'static str {
     "reserved for later exercises"
 }
 
+#[must_use]
 fn build_mode_name(mode: BuildMode) -> &'static str {
     match mode {
         BuildMode::Debug => "debug",
@@ -28,7 +31,16 @@ fn build_mode_name(mode: BuildMode) -> &'static str {
 }
 
 fn main() {
-    println!("{:?} => {}", BuildMode::Debug, build_mode_name(BuildMode::Debug));
+    println!(
+        "{:?} => {}",
+        BuildMode::Debug,
+        build_mode_name(BuildMode::Debug)
+    );
+    println!(
+        "{:?} => {}",
+        BuildMode::Release,
+        build_mode_name(BuildMode::Release)
+    );
 }
 
 #[cfg(test)]

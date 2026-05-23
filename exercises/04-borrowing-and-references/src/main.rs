@@ -18,7 +18,7 @@ fn append_rust(text: &mut String) {
 
 fn main() {
     let mut label = String::from("Learning");
-    
+
     // TODO: Call `measure` on `label` to get its length
     let len = measure(&label);
 

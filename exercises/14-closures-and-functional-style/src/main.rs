@@ -47,10 +47,15 @@ fn main() {
 
     users.sort_by_key(|user| user.score);
     println!("{users:?}");
+    println!("top user = {}", users[1].name);
 
     let words = ["1", "2", "bad", "4"];
     let parsed = parse_numbers(&words);
     println!("{parsed:?}");
+    println!(
+        "long words = {}",
+        count_long_words(&["rust", "is", "practical"], 4)
+    );
 }
 
 #[cfg(test)]

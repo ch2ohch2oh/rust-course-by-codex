@@ -8,6 +8,9 @@ Tasks:
 4. Add a file-reading example that uses `?`.
 */
 
+use std::error::Error;
+use std::fs;
+
 fn parse_number(text: &str) -> Result<i32, std::num::ParseIntError> {
     text.parse::<i32>()
 }
@@ -16,13 +19,26 @@ fn first_parsed_number(values: &[&str]) -> Option<i32> {
     values.iter().find_map(|value| parse_number(value).ok())
 }
 
-fn main() {
+fn read_manifest() -> Result<String, std::io::Error> {
+    fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/Cargo.toml"))
+}
+
+fn main() -> Result<(), Box<dyn Error>> {
     let values = ["10", "20", "oops"];
 
     for value in values {
-        let parsed = parse_number(value).unwrap_or(-1);
-        println!("{value} -> {parsed}");
+        match parse_number(value) {
+            Ok(parsed) => println!("{value} -> {parsed}"),
+            Err(error) => println!("{value} failed to parse: {error}"),
+        }
     }
+
+    println!("first parsed number = {:?}", first_parsed_number(&values));
+
+    let manifest = read_manifest()?;
+    println!("read {} bytes from Cargo.toml", manifest.len());
+
+    Ok(())
 }
 
 #[cfg(test)]

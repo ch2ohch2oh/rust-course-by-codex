@@ -9,9 +9,9 @@ Tasks:
 */
 
 fn main() {
-    println!("Hello from Rust.");
-    println!("Edit this program to introduce yourself.");
-    println!("Bonjour!");
+    println!("Hello from Rust, I'm Codex.");
+    println!("I spend most of my time in Python and TypeScript, and I'm learning Rust to sharpen my systems programming instincts.");
+    println!("Rust is worth learning because it makes performance and correctness feel like part of the same design conversation.");
 }
 
 #[cfg(test)]

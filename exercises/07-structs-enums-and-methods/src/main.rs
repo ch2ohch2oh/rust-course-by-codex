@@ -17,6 +17,7 @@ struct Rectangle {
 enum Message {
     Quit,
     Write(String),
+    ChangeColor(u8, u8, u8),
 }
 
 impl Rectangle {
@@ -40,13 +41,24 @@ fn process(message: Message) {
     match message {
         Message::Quit => println!("quit"),
         Message::Write(text) => println!("text: {text}"),
+        Message::ChangeColor(red, green, blue) => {
+            println!("color: rgb({red}, {green}, {blue})")
+        }
     }
 }
 
 fn main() {
     let rect = Rectangle::square(4);
+    let shelf = Rectangle {
+        width: 8,
+        height: 8,
+    };
+
     println!("{rect:?} area={}", rect.area());
+    println!("shelf can hold rect? {}", shelf.can_hold(&rect));
+    process(Message::Quit);
     process(Message::Write(String::from("hello")));
+    process(Message::ChangeColor(20, 40, 60));
 }
 
 #[cfg(test)]

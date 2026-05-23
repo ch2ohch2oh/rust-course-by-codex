@@ -41,7 +41,8 @@ fn run_workers(worker_count: usize) -> (Vec<String>, usize) {
         handle.join().unwrap();
     }
 
-    (messages, *counter.lock().unwrap())
+    let counter_value = *counter.lock().unwrap();
+    (messages, counter_value)
 }
 
 fn main() {

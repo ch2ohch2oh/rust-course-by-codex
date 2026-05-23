@@ -23,7 +23,7 @@ fn word_count(text: &str) -> HashMap<&str, usize> {
 }
 
 fn main() {
-    let numbers = vec![1, 2, 3, 4, 5, 6];
+    let numbers = [1, 2, 3, 4, 5, 6];
     let text = "rust makes ownership explicit and rust makes safety practical";
 
     let doubled: Vec<i32> = numbers.iter().map(|n| n * 2).collect();
@@ -32,8 +32,13 @@ fn main() {
     let counts = word_count(text);
     println!("counts = {counts:?}");
 
-    // TODO: Compute sum and average for `numbers`.
-    // TODO: Collect the even values into a new vector.
+    let sum: i32 = numbers.iter().sum();
+    let average = sum as f64 / numbers.len() as f64;
+    let evens = even_numbers(&numbers);
+
+    println!("sum = {sum}");
+    println!("average = {average:.2}");
+    println!("evens = {evens:?}");
 }
 
 #[cfg(test)]

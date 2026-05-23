@@ -22,6 +22,10 @@ fn greet(name: &str) {
     println!("Hello, {name}");
 }
 
+fn split_csv_line(line: &str) -> Vec<&str> {
+    line.split(',').collect()
+}
+
 fn main() {
     let text = String::from("hello rust world");
     let csv = "red,green,blue";
@@ -29,8 +33,10 @@ fn main() {
     greet(&text);
     println!("first word = {}", first_word(&text));
 
-    // TODO: Split `csv` into fields and print them.
-    let _ = csv;
+    // Direct indexing into `String` is restricted because strings are UTF-8.
+    // A single character may span multiple bytes, so `s[0]` would be ambiguous.
+    let fields = split_csv_line(csv);
+    println!("fields = {fields:?}");
 }
 
 #[cfg(test)]
@@ -45,5 +51,13 @@ mod tests {
     #[test]
     fn first_word_returns_whole_input_when_no_space_exists() {
         assert_eq!(first_word("rust"), "rust");
+    }
+
+    #[test]
+    fn split_csv_line_breaks_fields_apart() {
+        assert_eq!(
+            split_csv_line("red,green,blue"),
+            vec!["red", "green", "blue"]
+        );
     }
 }

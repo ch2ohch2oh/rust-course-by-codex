@@ -24,15 +24,19 @@ fn sum_list(list: &List) -> i32 {
 }
 
 fn main() {
-    let _list = List::Cons(1, Box::new(List::Cons(2, Box::new(List::Nil))));
+    // `Box` gives recursive data a known size at compile time.
+    let list = List::Cons(1, Box::new(List::Cons(2, Box::new(List::Nil))));
 
+    // `Rc` shares read-only ownership on a single thread.
     let shared = Rc::new(String::from("shared data"));
     let _a = Rc::clone(&shared);
     let _b = Rc::clone(&shared);
 
+    // `Arc` is the thread-safe sharing variant; pair it with `Mutex` when writes are needed.
     let value = RefCell::new(10);
     *value.borrow_mut() += 5;
 
+    println!("list sum = {}", sum_list(&list));
     println!("shared = {shared}");
     println!("value = {}", value.borrow());
 }
@@ -43,7 +47,10 @@ mod tests {
 
     #[test]
     fn recursive_list_can_be_summed() {
-        let list = List::Cons(1, Box::new(List::Cons(2, Box::new(List::Cons(3, Box::new(List::Nil))))));
+        let list = List::Cons(
+            1,
+            Box::new(List::Cons(2, Box::new(List::Cons(3, Box::new(List::Nil))))),
+        );
         assert_eq!(sum_list(&list), 6);
     }
 

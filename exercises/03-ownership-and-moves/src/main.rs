@@ -17,8 +17,8 @@ fn takes_integer(value: i32) {
     println!("copied integer: {value}");
 }
 
-fn clone_and_return_text(value: &String) -> String {
-    value.clone()
+fn clone_and_return_text(value: &str) -> String {
+    value.to_owned()
 }
 
 fn copy_and_return_number(value: i32) -> i32 {
@@ -29,12 +29,15 @@ fn main() {
     let greeting = String::from("hello");
     let number = 42;
 
-    // TODO: Add an example where `greeting` is moved into `takes_string`.
-    takes_string(greeting);
+    let cloned_greeting = clone_and_return_text(&greeting);
+    takes_string(cloned_greeting);
+    println!("greeting is still usable after cloning: {greeting}");
 
-    // TODO: Add a second example that uses `clone`.
-    takes_integer(number.clone());
+    let moved_greeting = greeting;
+    takes_string(moved_greeting);
 
+    let copied_number = copy_and_return_number(number);
+    takes_integer(copied_number);
     takes_integer(number);
     println!("number is still usable here: {number}");
 }
