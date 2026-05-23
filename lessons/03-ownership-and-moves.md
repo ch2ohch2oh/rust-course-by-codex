@@ -67,27 +67,49 @@ fn main() {
 
 ## `Copy` Types
 
-Simple types often implement `Copy`:
+`Copy` is a special **marker trait** in Rust that changes the default assignment behavior from **moving** to **bitwise copying**.
+
+If a type implements the `Copy` trait, assigning it to a new variable creates a fast, bit-by-bit copy of the data. Because the data is simply duplicated, **both the old and the new variables remain perfectly valid and usable**.
+
+Types that live entirely on the stack and don't manage extra resources (like heap memory or file handles) are usually `Copy`:
 
 ```rust
 fn main() {
     let x = 5;
-    let y = x;
+    let y = x; // A bitwise copy happens here
 
-    println!("{x} {y}");
+    // This works fine! Both x and y are valid.
+    println!("x is {}, y is {}", x, y);
 }
 ```
 
-Here `x` remains usable because integers implement `Copy`.
-
 Typical `Copy` types include:
 
-- integers
-- booleans
-- chars
-- tuples containing only `Copy` types
+- Integers (`i32`, `u8`, etc.)
+- Floats (`f64`, `f32`)
+- Booleans (`bool`)
+- Characters (`char`)
+- Tuples containing only `Copy` types
 
-User-defined structs are also non-`Copy` by default unless all their fields are `Copy` and you opt into `Copy`.
+### `Copy` and Structs
+
+When you create your own user-defined `struct`, Rust makes it **non-`Copy` (it moves)** by default to be safe. 
+
+If you want your struct to copy instead of move, you must explicitly opt in by adding `#[derive(Copy, Clone)]` above it. The compiler will only allow this if *every single field* inside your struct is also a `Copy` type.
+
+```rust
+// This struct can be Copy because i32 and f64 are Copy
+#[derive(Copy, Clone)]
+struct Point {
+    x: i32,
+    y: f64,
+}
+
+// This struct CANNOT be Copy because String is not Copy
+struct User {
+    name: String, // String manages heap memory, so it must move
+}
+```
 
 ## Ownership and Functions
 

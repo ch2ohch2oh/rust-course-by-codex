@@ -9,6 +9,7 @@ Tasks:
 */
 
 fn takes_string(value: String) {
+    // Rust 1.58+ allows capturing variables directly inside the formatting string {}
     println!("owned string: {value}");
 }
 
@@ -29,7 +30,10 @@ fn main() {
     let number = 42;
 
     // TODO: Add an example where `greeting` is moved into `takes_string`.
+    takes_string(greeting);
+
     // TODO: Add a second example that uses `clone`.
+    takes_integer(number.clone());
 
     takes_integer(number);
     println!("number is still usable here: {number}");
