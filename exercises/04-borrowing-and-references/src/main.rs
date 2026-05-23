@@ -8,7 +8,7 @@ Tasks:
 4. Rewrite one ownership-heavy example from the previous exercise using borrowing.
 */
 
-fn measure(text: &String) -> usize {
+fn measure(text: &str) -> usize {
     text.len()
 }
 
@@ -18,9 +18,14 @@ fn append_rust(text: &mut String) {
 
 fn main() {
     let mut label = String::from("Learning");
+    
+    // TODO: Call `measure` on `label` to get its length
     let len = measure(&label);
+
+    // TODO: Call `append_rust` on `label` to mutate it
     append_rust(&mut label);
 
+    // TODO: Print the modified label and its original length
     println!("{label} has length {len} before mutation");
 }
 

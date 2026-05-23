@@ -6,9 +6,11 @@ Use references to access data without taking ownership, and understand the rules
 
 ## Mental Model
 
-Borrowing means: "I want temporary access to this value, but I do not want to own it."
+Are borrowing and references the same thing? In Rust, they are essentially two sides of the same coin:
+- **Borrowing** is the *concept* or *action* (e.g., "I want temporary access to this value, but I do not want to own it.").
+- A **Reference** is the actual *tool* or *data type* you use in your code to perform that borrow.
 
-Rust supports two main forms:
+Rust supports two main forms of references:
 
 - shared reference: `&T`
 - mutable reference: `&mut T`

@@ -19,7 +19,7 @@ Each part includes:
 - [x] Part 1: Setup and First Program
 - [x] Part 2: Variables, Mutability, and Basic Types
 - [x] Part 3: Ownership and Moves
-- [ ] Part 4: Borrowing and References
+- [x] Part 4: Borrowing and References
 - [ ] Part 5: Strings and Slices
 - [ ] Part 6: Control Flow and Pattern Matching
 - [ ] Part 7: Structs, Enums, and Methods
