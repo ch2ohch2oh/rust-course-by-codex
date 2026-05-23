@@ -23,6 +23,10 @@ fn greet(name: &str) {
 }
 
 fn split_csv_line(line: &str) -> Vec<&str> {
+    // `line` is `&str`, `line.split(',')` returns `std::str::Split<'_, char>`,
+    // where `'_` is the inferred lifetime saying the iterator borrows from `line`.
+    // Each item yielded by that iterator is `&str`, and `.collect()` gathers them
+    // into the final `Vec<&str>`.
     line.split(',').collect()
 }
 
