@@ -18,6 +18,7 @@ enum Message {
     Quit,
     Write(String),
     ChangeColor(u8, u8, u8),
+    Move { x: i32, y: i32 },
 }
 
 impl Rectangle {
@@ -43,7 +44,8 @@ fn process(message: Message) {
         Message::Write(text) => println!("text: {text}"),
         Message::ChangeColor(red, green, blue) => {
             println!("color: rgb({red}, {green}, {blue})")
-        }
+        },
+        Message::Move { x, y } => println!("move to ({x}, {y})"),
     }
 }
 
@@ -59,6 +61,7 @@ fn main() {
     process(Message::Quit);
     process(Message::Write(String::from("hello")));
     process(Message::ChangeColor(20, 40, 60));
+    process(Message::Move { x: 10, y: 20 });
 }
 
 #[cfg(test)]
