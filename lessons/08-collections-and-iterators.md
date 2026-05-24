@@ -51,10 +51,10 @@ fn main() {
     let numbers = vec![1, 2, 3, 4, 5];
 
     let doubled: Vec<i32> = numbers
-        .iter()
-        .map(|n| n * 2)
-        .filter(|n| *n > 5)
-        .collect();
+        .iter()               // Iter<'_, i32>
+        .map(|n| n * 2)       // Map<Iter<'_, i32>, _>
+        .filter(|n| *n > 5)   // Filter<Map<Iter<'_, i32>, _>, _>
+        .collect();           // Vec<i32>
 
     println!("{doubled:?}");
 }
@@ -109,6 +109,7 @@ fn word_count(text: &str) -> HashMap<&str, usize> {
     let mut counts = HashMap::new();
 
     for word in text.split_whitespace() {
+        // `entry(word)` returns `Entry<&str, usize>`, and `or_insert(0)` gives `&mut usize`.
         *counts.entry(word).or_insert(0) += 1;
     }
 
