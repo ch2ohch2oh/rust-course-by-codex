@@ -1,4 +1,4 @@
-# Part 10A: Rust Attributes
+# Supplemental Lesson: Rust Attributes
 
 ## Goal
 

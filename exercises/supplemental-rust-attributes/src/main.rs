@@ -1,5 +1,5 @@
 /*
-Exercise 10A: Rust Attributes
+Supplemental Exercise: Rust Attributes
 
 Tasks:
 1. Add one more derived trait to `BuildMode` and explain why it is appropriate.

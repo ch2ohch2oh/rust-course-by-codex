@@ -42,4 +42,4 @@ Use `cargo fmt` and `cargo clippy` when helpful. Exercise instructions live in c
 
 ## Supplemental
 
-- [ ] [Rust Attributes](./lessons/10a-rust-attributes.md)
+- [ ] [Rust Attributes](./lessons/supplemental-rust-attributes.md)
