@@ -11,6 +11,8 @@ Tasks:
 fn main() {
     println!(
         "6 * 7 = {}",
+        // This package has a binary crate (`main.rs`) and a library crate (`lib.rs`).
+        // The binary calls the library through the crate name from `Cargo.toml`.
         modules_crates_and_project_structure::multiply(6, 7)
     );
 }
