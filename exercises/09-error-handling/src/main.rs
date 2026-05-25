@@ -2,10 +2,10 @@
 Exercise 09: Error Handling
 
 Tasks:
-1. Replace the `unwrap_or` shortcut with explicit `Result` handling.
-2. Add a function that returns `Option<i32>` for the first parsed number.
-3. Change `main` to return `Result<(), Box<dyn std::error::Error>>`.
-4. Add a file-reading example that uses `?`.
+1. Parse integers with a function that returns `Result<i32, ParseIntError>`.
+2. Add a function that returns `Option<i32>` for the first successfully parsed number.
+3. Handle parse failures explicitly with `match` in `main`.
+4. Return `Result<(), Box<dyn std::error::Error>>` from `main` and use `?` to read a file.
 */
 
 use std::error::Error;
@@ -16,6 +16,7 @@ fn parse_number(text: &str) -> Result<i32, std::num::ParseIntError> {
 }
 
 fn first_parsed_number(values: &[&str]) -> Option<i32> {
+    // Return the first value that parses successfully, skipping failures.
     values.iter().find_map(|value| parse_number(value).ok())
 }
 
@@ -27,6 +28,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let values = ["10", "20", "oops"];
 
     for value in values {
+        // `value` is already a `&str` here because the array stores string slices.
         match parse_number(value) {
             Ok(parsed) => println!("{value} -> {parsed}"),
             Err(error) => println!("{value} failed to parse: {error}"),

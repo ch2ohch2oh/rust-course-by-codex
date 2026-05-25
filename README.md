@@ -27,7 +27,7 @@ Use `cargo fmt` and `cargo clippy` when helpful. Exercise instructions live in c
 - [x] [6: Control Flow and Pattern Matching](./lessons/06-control-flow-and-pattern-matching.md)
 - [x] [7: Structs, Enums, and Methods](./lessons/07-structs-enums-and-methods.md)
 - [x] [8: Collections and Iterators](./lessons/08-collections-and-iterators.md)
-- [ ] [9: Error Handling](./lessons/09-error-handling.md)
+- [x] [9: Error Handling](./lessons/09-error-handling.md)
 - [ ] [10: Modules, Crates, and Project Structure](./lessons/10-modules-crates-and-project-structure.md)
 - [ ] [11: Traits and Generics](./lessons/11-traits-and-generics.md)
 - [ ] [12: Lifetimes](./lessons/12-lifetimes.md)

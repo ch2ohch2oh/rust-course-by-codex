@@ -82,6 +82,67 @@ These are allowed, but use them carefully.
 - `unwrap()`: panic on error
 - `expect("message")`: panic with your message
 
+They both extract the success case:
+
+- `Some(T)` from an `Option<T>`
+- `Ok(T)` from a `Result<T, E>`
+
+If the value is missing or the operation failed, the program stops immediately with a panic.
+
+Example with `Option`:
+
+```rust
+let name = Some("Rust");
+println!("{}", name.unwrap());
+```
+
+This prints `Rust`.
+
+But this panics:
+
+```rust
+let name: Option<&str> = None;
+println!("{}", name.unwrap());
+```
+
+Example with `Result`:
+
+```rust
+let port: i32 = "8080".parse().unwrap();
+println!("{port}");
+```
+
+This succeeds because `"8080"` parses correctly. But `"abc".parse::<i32>().unwrap()` would panic.
+
+`expect` does the same thing, but gives you a clearer crash message:
+
+```rust
+let config = std::fs::read_to_string("config.toml")
+    .expect("config.toml should exist next to the executable");
+```
+
+That is often much more useful than a plain `unwrap()`, because the panic tells you what assumption the code was making.
+
+As a rule of thumb:
+
+- use `unwrap()` when the exact reason is already obvious and the code is very local
+- use `expect()` when you want the failure to explain an important assumption
+
+For example, this:
+
+```rust
+let token = std::env::var("API_TOKEN").unwrap();
+```
+
+is weaker than this:
+
+```rust
+let token = std::env::var("API_TOKEN")
+    .expect("API_TOKEN must be set before running this program");
+```
+
+In production-style code, prefer returning `Result` and using `?` instead of panicking. Panics are for cases where the program cannot or should not continue, not for routine input errors.
+
 They are acceptable in:
 
 - tiny throwaway programs
@@ -89,6 +150,13 @@ They are acceptable in:
 - places where failure is truly unrecoverable and well-justified
 
 They are not good default error handling for real code.
+
+One useful mindset:
+
+- `unwrap` means "I am certain this cannot fail here"
+- `expect` means "I am certain this cannot fail here, and here is why"
+
+If you cannot clearly justify that certainty, it is usually better to handle the `Option` or `Result` explicitly.
 
 ## C++ and Python Notes
 
