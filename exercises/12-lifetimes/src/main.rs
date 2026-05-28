@@ -34,6 +34,14 @@ fn main() {
     println!("longest = {}", longest(&a, &b));
     println!("quote = {}", quote.text);
     println!("owned emphasis = {}", owned_emphasis(quote.text));
+
+    // This would not compile because `e` would outlive the borrowed `temp`:
+    // let e;
+    // {
+    //     let temp = String::from("temporary");
+    //     e = Quote { text: &temp };
+    // }
+    // println!("e = {}", e.text);
 }
 
 #[cfg(test)]

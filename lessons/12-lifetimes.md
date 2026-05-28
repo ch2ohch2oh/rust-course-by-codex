@@ -29,6 +29,14 @@ The annotation says:
 
 In practice, the returned reference is valid only as long as both inputs are valid. Rust uses `'a` to express that relationship.
 
+Why one marker instead of two?
+
+- the function may return `x` or `y`
+- the return type therefore must be compatible with either input
+- using one shared lifetime says "the returned reference is valid for the lifetime both inputs have in common"
+
+This annotation is required in this example. Without it, Rust sees two input references and one output reference, but it cannot infer whether the output is tied to `x`, `y`, or both.
+
 ## Lifetime Elision
 
 Rust often infers lifetimes for you:
