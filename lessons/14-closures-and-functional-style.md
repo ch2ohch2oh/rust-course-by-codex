@@ -24,6 +24,27 @@ At the trait level, closures implement one or more of:
 
 Those traits matter because many APIs are expressed in terms of them.
 
+Quick cheat sheet:
+
+| Trait | What it does | Typical capture behavior |
+| --- | --- | --- |
+| `Fn` | read captured values | shared borrow |
+| `FnMut` | mutate captured values | mutable borrow |
+| `FnOnce` | consume captured values | move |
+
+Examples:
+
+```rust
+let x = 5;
+let show = || println!("{x}"); // `Fn`
+
+let mut count = 0;
+let mut bump = || count += 1; // `FnMut`
+
+let name = String::from("Rust");
+let consume = move || drop(name); // `FnOnce`
+```
+
 ## Closure Syntax
 
 ```rust
@@ -66,14 +87,19 @@ fn main() {
 Sometimes a closure must take ownership:
 
 ```rust
+use std::thread;
+
 fn main() {
     let text = String::from("hello");
-    let print = move || println!("{text}");
-    print();
+    let handle = thread::spawn(move || {
+        println!("{text}");
+    });
+
+    handle.join().unwrap();
 }
 ```
 
-`move` is especially common when spawning threads or async tasks, because the closure must own data it will use later.
+`move` is especially common when spawning threads or async tasks, because the closure may run after the current scope would otherwise end.
 
 ## Closures with Iterators
 
