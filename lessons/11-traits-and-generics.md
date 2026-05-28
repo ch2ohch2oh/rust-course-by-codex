@@ -69,6 +69,8 @@ impl Describe for Book {
 
 Traits define required behavior. Types implement that behavior explicitly.
 
+If you come from Java, TypeScript, or C#, a trait is the closest Rust equivalent to an interface. That said, "shared behavior contract" is a better mental model because traits can also include default method implementations and are commonly used in generic bounds.
+
 ## Trait Bounds
 
 ```rust
@@ -105,6 +107,8 @@ where
     }
 }
 ```
+
+For C++ programmers, a `where` clause is similar to a `requires` clause using concepts: it expresses the capabilities a generic type must have, but Rust usually does that by naming traits in the bound.
 
 ## Design Guidance
 
