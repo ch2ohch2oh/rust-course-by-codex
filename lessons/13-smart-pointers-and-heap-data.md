@@ -9,8 +9,8 @@ Learn when plain ownership is enough and when smart pointers are needed to expre
 Most Rust code uses ordinary ownership and borrowing. Smart pointers are for specific cases:
 
 - `Box<T>`: single ownership of heap data
-- `Rc<T>`: shared ownership in single-threaded code
-- `Arc<T>`: shared ownership in multi-threaded code
+- `Rc<T>` (`Reference Counted<T>`): shared ownership in single-threaded code
+- `Arc<T>` (`Atomically Reference Counted<T>`): shared ownership in multi-threaded code
 - `RefCell<T>`: interior mutability with runtime borrow checks
 
 Do not reach for them automatically. Start with normal ownership first.
@@ -37,7 +37,7 @@ Without `Box`, the enum would have infinite size at compile time.
 
 ## `Rc<T>`
 
-`Rc<T>` enables multiple owners in single-threaded code:
+`Rc<T>` stands for `Reference Counted<T>`. It enables multiple owners in single-threaded code:
 
 ```rust
 use std::rc::Rc;
@@ -82,7 +82,7 @@ It is useful, but it is also a warning sign. If you use it everywhere, your desi
 
 ## `Arc<T>`
 
-`Arc<T>` is the thread-safe version of `Rc<T>`.
+`Arc<T>` stands for `Atomically Reference Counted<T>`. It is the thread-safe version of `Rc<T>`.
 
 Use it when shared ownership crosses threads. It is often combined with `Mutex<T>` for shared mutable state.
 

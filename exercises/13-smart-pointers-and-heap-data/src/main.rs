@@ -24,15 +24,21 @@ fn sum_list(list: &List) -> i32 {
 }
 
 fn main() {
-    // `Box` gives recursive data a known size at compile time.
+    // `Box<T>` gives this recursive enum a known size at compile time.
+    // It also means the list has one clear owner.
     let list = List::Cons(1, Box::new(List::Cons(2, Box::new(List::Nil))));
 
-    // `Rc` shares read-only ownership on a single thread.
+    // `Rc<T>` stands for `Reference Counted<T>`.
+    // It lets multiple values own the same data on one thread.
+    // By itself, it is for shared read access rather than direct mutation.
     let shared = Rc::new(String::from("shared data"));
     let _a = Rc::clone(&shared);
     let _b = Rc::clone(&shared);
 
-    // `Arc` is the thread-safe sharing variant; pair it with `Mutex` when writes are needed.
+    // `RefCell<T>` allows interior mutability.
+    // The outer binding does not need to be `mut`, but borrow rules are checked at runtime.
+    // If you need shared ownership plus mutation on one thread, `Rc<RefCell<T>>` is a common pattern.
+    // `Arc<T>` is the multi-threaded version of `Rc<T>` and is often paired with `Mutex<T>`.
     let value = RefCell::new(10);
     *value.borrow_mut() += 5;
 
