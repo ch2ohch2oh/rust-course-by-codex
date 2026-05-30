@@ -24,17 +24,28 @@ async fn hello() -> String {
 
 Calling `hello()` does not run it immediately in the usual sense. It creates a future.
 
-To make progress, you need an async runtime such as Tokio.
+To make progress, you need an async runtime such as Tokio. This is one of the most important ideas in async Rust: `async` and `.await` describe work, but the runtime drives that work.
 
 ## Why a Runtime Exists
+
+An async runtime is the engine of an async program. Futures are passive values. They do not run themselves, create threads themselves, or automatically watch sockets and timers themselves.
 
 The runtime:
 
 - polls futures
 - schedules tasks
 - integrates with timers, sockets, and other async I/O
+- wakes tasks when I/O, timers, or other awaited work can make progress
+
+This matters because async Rust is cooperative. A task runs until it reaches an `.await`, then yields control back to the runtime. The runtime can then run another ready task on the same thread or on a worker thread.
 
 Without a runtime, most async code has no engine to drive it.
+
+The runtime choice also shapes your program:
+
+- Tokio is common for servers, networking, timers, and production async applications.
+- Different runtimes provide different task schedulers, I/O integrations, and APIs.
+- Mixing runtimes casually can cause confusion because runtime-specific types often expect their own runtime to be running.
 
 ## Example with Tokio
 
