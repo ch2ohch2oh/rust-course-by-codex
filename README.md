@@ -33,7 +33,7 @@ Use `cargo fmt` and `cargo clippy` when helpful. Exercise instructions live in c
 - [x] [12: Lifetimes](./lessons/12-lifetimes.md)
 - [x] [13: Smart Pointers and Heap Data](./lessons/13-smart-pointers-and-heap-data.md)
 - [x] [14: Closures and Functional Style](./lessons/14-closures-and-functional-style.md)
-- [ ] [15: Concurrency with Threads and Channels](./lessons/15-concurrency-with-threads-and-channels.md)
+- [x] [15: Concurrency with Threads and Channels](./lessons/15-concurrency-with-threads-and-channels.md)
 - [ ] [16: Async Rust Basics](./lessons/16-async-rust-basics.md)
 - [ ] [17: Testing and Documentation](./lessons/17-testing-and-documentation.md)
 - [ ] [18: Unsafe Rust and FFI](./lessons/18-unsafe-rust-and-ffi.md)

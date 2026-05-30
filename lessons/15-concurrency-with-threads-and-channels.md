@@ -49,11 +49,22 @@ fn main() {
 
 The closure takes ownership because the thread may outlive the scope that created it.
 
-In practice, thread closures and captured values also need to satisfy `Send`, and `thread::spawn` usually forces a `'static` lifetime requirement on captured data. That is why borrowing a local variable into a spawned thread often fails even when the logic looks harmless.
+In practice, thread closures and captured values also need to satisfy `Send`.
+
+`Send` is a marker trait that means a value can be safely moved from one thread to another. Most ordinary owned values, such as `String`, `Vec<T>`, and numbers, are `Send`. Some single-threaded types, such as `Rc<T>`, are not `Send`; use `Arc<T>` when shared ownership needs to cross thread boundaries.
+
+Related trait:
+
+- `Send`: safe to move ownership to another thread
+- `Sync`: safe to share references between threads
+
+`thread::spawn` usually also forces a `'static` lifetime requirement on captured data. That is why borrowing a local variable into a spawned thread often fails even when the logic looks harmless.
 
 ## Channels
 
 Channels let threads send messages safely:
+
+`mpsc` means multiple producer, single consumer. In other words, many senders can produce messages, but one receiver consumes them. This is useful when several worker threads send results back to one collector.
 
 ```rust
 use std::sync::mpsc;
@@ -71,6 +82,8 @@ fn main() {
 }
 ```
 
+Here, `tx` is the transmitter and `rx` is the receiver. You can clone `tx` to let multiple threads send messages into the same channel.
+
 This style reduces shared mutable state and can simplify reasoning.
 
 ## Shared State with `Arc<Mutex<T>>`
@@ -80,19 +93,25 @@ use std::sync::{Arc, Mutex};
 use std::thread;
 
 fn main() {
+    // One shared counter protected by a mutex.
     let counter = Arc::new(Mutex::new(0));
     let mut handles = vec![];
 
     for _ in 0..4 {
+        // Clone the Arc pointer so this thread owns a handle to the same counter.
         let counter = Arc::clone(&counter);
         let handle = thread::spawn(move || {
+            // `lock` returns a guard; while the guard exists, the mutex is locked.
             let mut num = counter.lock().unwrap();
+            // `MutexGuard` implements `DerefMut`, so `*num` reaches the protected integer.
             *num += 1;
+            // Dropping the guard releases the lock automatically.
         });
         handles.push(handle);
     }
 
     for handle in handles {
+        // Wait for every spawned thread to finish before reading the result.
         handle.join().unwrap();
     }
 
@@ -104,6 +123,8 @@ Why both types?
 
 - `Arc<T>` gives shared ownership across threads
 - `Mutex<T>` gives synchronized mutable access
+
+Compared with C++, Rust's `Mutex<T>` wraps the protected data. In C++, `std::mutex` is usually a separate lock that you manually associate with some data. In Rust, you must lock the `Mutex<T>` to access the inner `T`, and the lock is released automatically when the guard goes out of scope.
 
 ## Message Passing Versus Shared State
 

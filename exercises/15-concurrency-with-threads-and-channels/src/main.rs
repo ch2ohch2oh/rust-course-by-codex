@@ -18,7 +18,8 @@ fn run_workers(worker_count: usize) -> (Vec<String>, usize) {
 
     for worker_id in 0..worker_count {
         let tx = tx.clone();
-        let counter = Arc::clone(&counter);
+        // let counter = Arc::clone(&counter);
+        let counter = counter.clone();
         let handle = thread::spawn(move || {
             {
                 let mut count = counter.lock().unwrap();
